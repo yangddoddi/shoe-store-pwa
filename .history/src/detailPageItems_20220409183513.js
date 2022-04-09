@@ -30,10 +30,8 @@ function DetailPageItem(props) {
 
   recentlyViewedProduct.add(newProduct.id);
   console.log(recentlyViewedProduct);
-  localStorage.setItem(
-    "data",
-    JSON.stringify(Array.from(recentlyViewedProduct))
-  );
+  localStorage.setItem("data", JSON.stringify(recentlyViewedProduct));
+  localStorage.setItem("dataa", JSON.stringify({ 1: 1, 2: 2, 3: 3 }));
 
   useEffect(() => {
     let timer = setTimeout(() => {

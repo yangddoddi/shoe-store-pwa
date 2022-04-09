@@ -21,7 +21,7 @@ let Detail = lazy(() => import("./detailPageItems.js"));
 let stockContext = React.createContext();
 
 let recentlyViewedProduct = localStorage.getItem("data");
-let recentlyViewedArr = JSON.parse(recentlyViewedProduct);
+console.log(recentlyViewedProduct);
 
 function App() {
   let history = useHistory();
@@ -46,7 +46,6 @@ function App() {
   return (
     <div className="App">
       <NewNavbar />
-      {recentlyViewedArr ? <Sidebar history={history} /> : null}
       <Switch>
         <Route exact path="/">
           <Jumbotron />
@@ -191,20 +190,10 @@ function LoadingSpinner() {
   );
 }
 
-function Sidebar(props) {
+function Sidebar() {
   return (
     <aside className="sidebar">
       <p>최근 본 상품</p>
-      {recentlyViewedArr.map((num) => {
-        return (
-          <img
-            src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-            onClick={() => {
-              props.history.push(`/detail/${num}`);
-            }}
-          />
-        );
-      })}
     </aside>
   );
 }

@@ -199,10 +199,7 @@ function Sidebar(props) {
         return (
           <img
             src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-            onClick={() => {
-              props.history.push(`/detail/${num}`);
-            }}
-          />
+          onClick={()=>{props.history.push(/detail/${num+1}}} />
         );
       })}
     </aside>

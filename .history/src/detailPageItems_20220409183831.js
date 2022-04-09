@@ -16,6 +16,7 @@ let 제목 = styled.h4`
 `;
 
 const recentlyViewedProduct = new Set([]);
+const
 
 function DetailPageItem(props) {
   let { id } = useParams();
@@ -30,10 +31,8 @@ function DetailPageItem(props) {
 
   recentlyViewedProduct.add(newProduct.id);
   console.log(recentlyViewedProduct);
-  localStorage.setItem(
-    "data",
-    JSON.stringify(Array.from(recentlyViewedProduct))
-  );
+  localStorage.setItem("data", JSON.stringify(recentlyViewedProduct));
+
 
   useEffect(() => {
     let timer = setTimeout(() => {

@@ -28,12 +28,11 @@ function DetailPageItem(props) {
   let [tab, setTab] = useState("");
   let [animation, setAnimation] = useState(false);
 
-  recentlyViewedProduct.add(newProduct.id);
   console.log(recentlyViewedProduct);
-  localStorage.setItem(
-    "data",
-    JSON.stringify(Array.from(recentlyViewedProduct))
-  );
+
+  if (!recentlyViewedProduct) {
+    localStorage.setItem("data", newProduct.id);
+  }
 
   useEffect(() => {
     let timer = setTimeout(() => {

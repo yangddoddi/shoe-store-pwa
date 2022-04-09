@@ -200,7 +200,7 @@ function Sidebar(props) {
           <img
             src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
             onClick={() => {
-              props.history.push(`/detail/${num}`);
+              props.history.push(`/detail/${num + 1}`);
             }}
           />
         );

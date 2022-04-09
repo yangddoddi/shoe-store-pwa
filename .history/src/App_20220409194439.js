@@ -46,7 +46,7 @@ function App() {
   return (
     <div className="App">
       <NewNavbar />
-      {recentlyViewedArr ? <Sidebar history={history} /> : null}
+      {recentlyViewedArr ? <Sidebar /> : null}
       <Switch>
         <Route exact path="/">
           <Jumbotron />
@@ -191,7 +191,7 @@ function LoadingSpinner() {
   );
 }
 
-function Sidebar(props) {
+function Sidebar() {
   return (
     <aside className="sidebar">
       <p>최근 본 상품</p>
@@ -199,10 +199,7 @@ function Sidebar(props) {
         return (
           <img
             src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-            onClick={() => {
-              props.history.push(`/detail/${num}`);
-            }}
-          />
+          onClick={()=>{`history.push(/detail/${num+1}}`} />
         );
       })}
     </aside>

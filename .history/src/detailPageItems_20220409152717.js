@@ -15,8 +15,6 @@ let 제목 = styled.h4`
   color: ${(props) => props.color};
 `;
 
-const recentlyViewedProduct = new Set([]);
-
 function DetailPageItem(props) {
   let { id } = useParams();
   let history = useHistory();
@@ -27,13 +25,10 @@ function DetailPageItem(props) {
   let [inputVal, setInputVal] = useState("");
   let [tab, setTab] = useState("");
   let [animation, setAnimation] = useState(false);
-
-  recentlyViewedProduct.add(newProduct.id);
-  console.log(recentlyViewedProduct);
-  localStorage.setItem(
-    "data",
-    JSON.stringify(Array.from(recentlyViewedProduct))
-  );
+  if (!localStorage.getItem(id)) {
+    localStorage.removeItem(id);
+    localStorage.setItem(id, { id });
+  }
 
   useEffect(() => {
     let timer = setTimeout(() => {

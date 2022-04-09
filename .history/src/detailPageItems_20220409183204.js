@@ -29,11 +29,6 @@ function DetailPageItem(props) {
   let [animation, setAnimation] = useState(false);
 
   recentlyViewedProduct.add(newProduct.id);
-  console.log(recentlyViewedProduct);
-  localStorage.setItem(
-    "data",
-    JSON.stringify(Array.from(recentlyViewedProduct))
-  );
 
   useEffect(() => {
     let timer = setTimeout(() => {

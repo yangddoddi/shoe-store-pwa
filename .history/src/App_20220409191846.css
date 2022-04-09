@@ -8,30 +8,12 @@
 }
 
 .sidebar {
-  background-color: white;
-  position: fixed;
+  position: sticky;
+  top: 0px;
   right: 0px;
-  top: 100px;
   display: flex;
   flex-direction: column;
-  width: 100px;
-  opacity: 90%;
-  border-radius: 10px;
-  border: whitesmoke 1px solid;
-}
-
-.sidebar p {
-  background-color: whitesmoke;
-  color: black;
-  padding: 10px 0px;
-  border-radius: 10px;
-  margin-bottom: 0px;
-}
-
-.sidebar img {
-  padding-bottom: 10px;
-  cursor: pointer;
-  border: whitesmoke 1px solid;
+  width: 10%;
 }
 
 .jumbotron {
