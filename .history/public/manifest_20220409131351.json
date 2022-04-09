@@ -1,6 +1,6 @@
 {
-  "short_name": "shoe Store",
-  "name": "shoe Store PWA project",
+  "short_name": "shoeStore",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
