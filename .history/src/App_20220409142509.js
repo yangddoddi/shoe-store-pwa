@@ -129,7 +129,7 @@ function Jumbotron() {
         The highest quality
       </p>
       <p className="lead">
-        <a className="btn btn-primary btn-lg" href="#" role="button">
+        <a className="btn btn-primary" href="#" role="button">
           Buy now
         </a>
       </p>

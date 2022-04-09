@@ -1,0 +1,26 @@
+.myAlert {
+  background-color: #eeeeee;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+
+  p {
+    margin-bottom: 0px;
+  }
+}
+
+.myAlert2 {
+  @extend .myAlert;
+  background-color: #ffe592;
+}
+
+.tabAnimation-enter {
+  opacity: 0;
+}
+// 시작점
+.tabAnimation-enter-active {
+  opacity: 1;
+  transition: all 500ms;
+}
+//  동작

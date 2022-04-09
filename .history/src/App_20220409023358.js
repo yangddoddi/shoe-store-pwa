@@ -1,4 +1,4 @@
-import React, { useState, useContext, lazy, Suspense } from "react";
+import React, { useState, useEffect, useContext, lazy, Suspense } from "react";
 import "./App.css";
 import { Link, Route, Switch, useHistory } from "react-router-dom";
 import axios from "axios";

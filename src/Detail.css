@@ -1,0 +1,23 @@
+.myAlert, .myAlert2 {
+  background-color: #eeeeee;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+}
+.myAlert p, .myAlert2 p {
+  margin-bottom: 0px;
+}
+
+.myAlert2 {
+  background-color: #ffe592;
+}
+
+.tabAnimation-enter {
+  opacity: 0;
+}
+
+.tabAnimation-enter-active {
+  opacity: 1;
+  transition: all 500ms;
+}/*# sourceMappingURL=Detail.css.map */
