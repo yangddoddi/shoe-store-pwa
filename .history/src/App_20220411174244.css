@@ -1,0 +1,105 @@
+@import "~antd/dist/antd.css";
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.sidebar {
+  background-color: white;
+  position: fixed;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  opacity: 90%;
+  border-radius: 10px;
+  border: whitesmoke 1px solid;
+}
+
+.sidebarP {
+  background-color: whitesmoke;
+  color: black;
+  padding: 10px 0px;
+  border-radius: 10px;
+  margin-bottom: 0px;
+}
+
+.sidebar img {
+  padding-bottom: 10px;
+  cursor: pointer;
+  border: whitesmoke 1px solid;
+}
+
+.jumbotron {
+  padding: 80px 0px;
+  background-image: url(../src/shoes.jpg);
+  background-size: cover;
+  background-position: center;
+  background-color: beige;
+  color: white;
+}
+
+.jumbotron h1 {
+  color: white;
+}
+
+.shopItem {
+  margin-top: 50px;
+}
+
+.shopItem p {
+  margin-bottom: 0px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.shopItemList img {
+  width: 100%;
+}
+
+.loading {
+  display: block;
+  margin: 100px auto 50px auto;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.shopItemList {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
