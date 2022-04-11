@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Cart() {
   let state = useSelector((state) => state);

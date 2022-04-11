@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import styled from "styled-components";
 import "./Detail.scss";
@@ -20,9 +20,11 @@ const recentlyViewedProduct = new Set([]);
 
 function DetailPageItem(props) {
   let { id } = useParams();
+  let history = useHistory();
   let newProduct = props.product.find(function (e) {
     return e.id == id;
   });
+  let [alert, setAlert] = useState(true);
   let [inputVal, setInputVal] = useState("");
   let [tab, setTab] = useState(0);
   let [animation, setAnimation] = useState(false);
@@ -34,11 +36,28 @@ function DetailPageItem(props) {
     JSON.stringify(Array.from(recentlyViewedProduct))
   );
 
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+      setAlert(true);
+    };
+  }, []);
+
   return (
     <div className="container">
       <박스>
         <제목 color="black">Detail</제목>
       </박스>
+      {inputVal}
+      <input
+        onChange={(e) => {
+          setInputVal(e.target.value);
+        }}
+      />
+      {alert ? <div className="myAlert">almost out of stock</div> : null}
       <div className="row">
         <div className="col-md-6">
           <img
@@ -71,7 +90,7 @@ function DetailPageItem(props) {
               });
             }}
           >
-            장바구니에 담기
+            주문하기
           </button>
         </div>
       </div>

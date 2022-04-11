@@ -63,9 +63,8 @@ function CartTable(props) {
           })}
         </tbody>
       </Table>
-      <Button className="btn btn-primary m-5" href="/">
-        메인 페이지
-      </Button>
+      <button
+            className="btn btn-danger"
     </>
   );
 }

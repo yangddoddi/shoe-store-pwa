@@ -71,7 +71,7 @@ function DetailPageItem(props) {
               });
             }}
           >
-            장바구니에 담기
+            장바구니
           </button>
         </div>
       </div>

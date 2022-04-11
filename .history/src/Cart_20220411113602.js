@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "react-bootstrap";
 
 function Cart() {
   let state = useSelector((state) => state);
@@ -63,9 +62,19 @@ function CartTable(props) {
           })}
         </tbody>
       </Table>
-      <Button className="btn btn-primary m-5" href="/">
-        메인 페이지
-      </Button>
+
+      {props.setAlert && (
+        <div className="myAlert">
+          <p>almost out of stock</p>
+          <button
+            onClick={() => {
+              props.dispatch({ type: "exitAlert" });
+            }}
+          >
+            닫기
+          </button>{" "}
+        </div>
+      )}
     </>
   );
 }

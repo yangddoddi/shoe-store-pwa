@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Cart() {
   let state = useSelector((state) => state);
@@ -63,9 +64,9 @@ function CartTable(props) {
           })}
         </tbody>
       </Table>
-      <Button className="btn btn-primary m-5" href="/">
+      <button className="btn btn-primary m-5" as={Link} to="/">
         메인 페이지
-      </Button>
+      </button>
     </>
   );
 }
