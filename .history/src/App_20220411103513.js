@@ -46,9 +46,10 @@ function App() {
   return (
     <div className="App">
       <NewNavbar />
-      {recentlyViewedArr ? <Sidebar history={history} /> : null}
+
       <Switch>
         <Route exact path="/">
+          {recentlyViewedArr ? <Sidebar history={history} /> : null}
           <Jumbotron />
           <stockContext.Provider value={stock}>
             <ShopItemList product={product} history={history} />
@@ -84,7 +85,7 @@ function NewNavbar() {
         >
           <Offcanvas.Header closeButton>
             <Offcanvas.Title id="offcanvasNavbarLabel">
-              Shoe Shop
+              Offcanvas
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
@@ -95,7 +96,26 @@ function NewNavbar() {
               <Nav.Link as={Link} className="link" to="../cart">
                 Cart
               </Nav.Link>
+              <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
+                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action4">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action5">
+                  Something else here
+                </NavDropdown.Item>
+              </NavDropdown>
             </Nav>
+            <Form className="d-flex">
+              <FormControl
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
       </Container>

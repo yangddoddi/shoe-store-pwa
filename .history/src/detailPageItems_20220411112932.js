@@ -226,7 +226,7 @@ function TabContent(props) {
     );
   } else if (props.tab === 2) {
     return (
-      <div className="detail_AS">
+      <div>
         <h1>세탁 방법 및 취급 시 주의사항</h1>
         <ul>
           <li>
