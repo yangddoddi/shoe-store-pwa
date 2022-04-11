@@ -183,7 +183,7 @@ function Sidebar(props) {
           return (
             <img
               src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-              key={num}
+              key={props.product.id}
               draggable="false"
               onClick={() => {
                 props.history.push(`/detail/${num}`);

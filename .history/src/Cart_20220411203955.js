@@ -31,7 +31,7 @@ function CartTable(props) {
         <tbody>
           {props.product.map((e, i) => {
             return (
-              <tr key={e.id}>
+              <tr>
                 <td>{e.id}</td>
                 <td>{e.name}</td>
                 <td>{e.quantity}</td>
@@ -63,10 +63,10 @@ function CartTable(props) {
           })}
         </tbody>
       </Table>
-      <Button className="btn btn-danger m-2 mt-5" href="/">
+      <Button className="btn btn-danger m-2" href="/">
         주문하기
       </Button>
-      <Button className="btn btn-primary m-2 mt-5" href="/">
+      <Button className="btn btn-primary m-5" href="/">
         메인 페이지
       </Button>
     </>

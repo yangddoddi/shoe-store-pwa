@@ -1,23 +1,36 @@
-import React, { useState, lazy, Suspense } from "react";
+import React, { useState, useContext, lazy, Suspense } from "react";
 import "./App.css";
 import { Link, Route, Switch, useHistory } from "react-router-dom";
 import axios from "axios";
 import Draggable from "react-draggable";
+import { BsArrowsMove } from "react-icons/bs";
 
-import { Navbar, Container, Offcanvas, Nav } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Offcanvas,
+  Nav,
+  Form,
+  Button,
+  NavDropdown,
+  FormControl,
+} from "react-bootstrap";
 import CartPage from "./Cart.js";
 import productData from "./data.js";
 // import DetailPageItem from "./detailPageItems.js";
 let Detail = lazy(() => import("./detailPageItems.js"));
 
-const recentlyViewedProduct = localStorage.getItem("data");
-const recentlyViewedArr = JSON.parse(recentlyViewedProduct);
+let stockContext = React.createContext();
+
+let recentlyViewedProduct = localStorage.getItem("data");
+let recentlyViewedArr = JSON.parse(recentlyViewedProduct);
 
 function App() {
   let history = useHistory();
 
   let [product, setProduct] = useState(productData);
   let [loading, setLoading] = useState(false);
+  let [stock, setStock] = useState([3, 7, 2]);
   const [sidePosition, setSidePosition] = useState({ x: 0, y: 0 });
   const trackPos = (data) => {
     setSidePosition({ x: data.x, y: data.y });
@@ -28,14 +41,8 @@ function App() {
     axios
       .get("https://codingapple1.github.io/shop/data2.json")
       .then((json) => {
-        let stringData = JSON.stringify(...json.data);
-        let stringProduct = JSON.stringify(product);
-        console.log(stringProduct.includes(stringData));
-
+        setProduct([...product, ...json.data]);
         setLoading(false);
-        if (!stringProduct.includes(stringData)) {
-          setProduct([...product, ...json.data]);
-        }
       })
       .catch(() => {
         alert("서버 요청에 실패했습니다.");
@@ -51,13 +58,14 @@ function App() {
           sidePosition={sidePosition}
           setSidePosition={setSidePosition}
           trackPos={trackPos}
-          product={product}
         />
       ) : null}
       <Switch>
         <Route exact path="/">
           <Jumbotron />
-          <ShopItemList product={product} history={history} />
+          <stockContext.Provider value={stock}>
+            <ShopItemList product={product} history={history} />
+          </stockContext.Provider>
           {loading ? <LoadingSpinner /> : null}
           <button className="btn btn-primary m-5" onClick={loadItems}>
             더보기
@@ -65,7 +73,7 @@ function App() {
         </Route>
         <Route path="/detail/:id">
           <Suspense fallback={<div>로딩중</div>}>
-            <Detail product={product} />
+            <Detail product={product} stock={stock} setStock={setStock} />
           </Suspense>
         </Route>
         <Route path="/cart">
@@ -119,7 +127,7 @@ function Jumbotron() {
         The highest quality
       </p>
       <p className="lead">
-        <a className="btn btn-primary btn-lg" href="/#/cart" role="button">
+        <a className="btn btn-primary btn-lg" href="#" role="button">
           Buy now
         </a>
       </p>
@@ -147,6 +155,8 @@ function ShopItemList(props) {
 }
 
 function ShopItems(props) {
+  let stock = useContext(stockContext);
+
   return (
     <div
       className="col-md-4 shopItem"
@@ -162,6 +172,7 @@ function ShopItems(props) {
       <h5>{props.product.title}</h5>
       <p>{props.product.content}</p>
       <p>{props.product.price}</p>
+      <p>stock : {stock[props.product.id]}</p>
     </div>
   );
 }
@@ -178,12 +189,14 @@ function Sidebar(props) {
   return (
     <Draggable onDrag={(e, data) => props.trackPos(data)}>
       <aside className="sidebar">
-        <p>최근 본 상품</p>
+        <p>
+          <BsArrowsMove style={{ fontSize: "13px", marginRight: "4px" }} />
+          최근 본 상품
+        </p>
         {recentlyViewedArr.map((num) => {
           return (
             <img
               src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-              key={num}
               draggable="false"
               onClick={() => {
                 props.history.push(`/detail/${num}`);

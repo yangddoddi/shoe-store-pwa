@@ -28,14 +28,10 @@ function App() {
     axios
       .get("https://codingapple1.github.io/shop/data2.json")
       .then((json) => {
-        let stringData = JSON.stringify(...json.data);
-        let stringProduct = JSON.stringify(product);
-        console.log(stringProduct.includes(stringData));
-
+        let data = [...json.data];
+        console.log(product.find(...data));
+        setProduct([...product, ...json.data]);
         setLoading(false);
-        if (!stringProduct.includes(stringData)) {
-          setProduct([...product, ...json.data]);
-        }
       })
       .catch(() => {
         alert("서버 요청에 실패했습니다.");
@@ -51,7 +47,6 @@ function App() {
           sidePosition={sidePosition}
           setSidePosition={setSidePosition}
           trackPos={trackPos}
-          product={product}
         />
       ) : null}
       <Switch>
@@ -183,7 +178,6 @@ function Sidebar(props) {
           return (
             <img
               src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-              key={num}
               draggable="false"
               onClick={() => {
                 props.history.push(`/detail/${num}`);

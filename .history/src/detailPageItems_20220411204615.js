@@ -6,18 +6,20 @@ import "./Detail.scss";
 import { CSSTransition } from "react-transition-group";
 import { Nav } from "react-bootstrap";
 import { connect } from "react-redux";
-import { Modal, Button, Result, Space } from "antd";
-import { CheckOutlined } from "@ant-design/icons";
-import "antd/dist/antd.css";
-import { useHistory } from "react-router-dom";
+import { Result, Button } from "antd";
 
-const { confirm } = Modal;
+let 박스 = styled.div`
+  padding-top: 30px;
+`;
+let 제목 = styled.h4`
+  font-size: 25px;
+  color: ${(props) => props.color};
+`;
 
 const recentlyViewedProduct = new Set([]);
 
 function DetailPageItem(props) {
   let { id } = useParams();
-  const history = useHistory();
   let newProduct = props.product.find(function (e) {
     return e.id == id;
   });
@@ -25,6 +27,7 @@ function DetailPageItem(props) {
   let [animation, setAnimation] = useState(false);
 
   recentlyViewedProduct.add(newProduct.id);
+  console.log(recentlyViewedProduct);
   localStorage.setItem(
     "data",
     JSON.stringify(Array.from(recentlyViewedProduct))
@@ -32,11 +35,10 @@ function DetailPageItem(props) {
 
   return (
     <div className="container">
-      <ProductInfo
-        newProduct={newProduct}
-        dispatch={props.dispatch}
-        history={history}
-      />
+      <박스>
+        <제목 color="black">Detail</제목>
+      </박스>
+      <ProductInfo newProduct={newProduct} />
       <Tab setTab={setTab} setAnimation={setAnimation} />
       <CSSTransition in={animation} classNames="tabAnimation" timeout={500}>
         <TabContent
@@ -99,43 +101,42 @@ function Tab(props) {
 
 function ProductInfo(props) {
   return (
-    <>
-      <div>
-        <h2>Detail</h2>
+    <div className="row">
+      <div className="col-md-6">
+        <img
+          src={`https://codingapple1.github.io/shop/shoes${
+            props.newProduct.id + 1
+          }.jpg`}
+          width="100%"
+        />
       </div>
-      <div className="row">
-        <div className="col-md-6">
-          <img
-            src={`https://codingapple1.github.io/shop/shoes${
-              props.newProduct.id + 1
-            }.jpg`}
-            width="100%"
-          />
-        </div>
-        <div className="col-md-6 mt-4">
-          <h4 className="pt-5">{props.newProduct.title}</h4>
-          <p>{props.newProduct.content}</p>
-          <p>{props.newProduct.price}</p>
-          <button
-            className="btn btn-danger"
-            onClick={() => {
-              showModal(props.history);
-              props.dispatch({
-                type: "order",
-                payload: {
-                  id: props.newProduct.id,
-                  name: props.newProduct.title,
-                  quantity: 1,
-                  price: props.newProduct.price,
-                },
-              });
-            }}
-          >
-            장바구니에 담기
-          </button>
-        </div>
+      <div className="col-md-6 mt-4">
+        <h4 className="pt-5">{props.newProduct.title}</h4>
+        <p>{props.newProduct.content}</p>
+        <p>{props.newProduct.price}</p>
+        <StackInfo stock={props.stock[props.newProduct.id]} />
+        <button
+          className="btn btn-danger"
+          onClick={() => {
+            let stock = props.stock.map((e) => {
+              return e - 1;
+            });
+            props.setStock(stock);
+            props.dispatch({
+              type: "order",
+              payload: {
+                id: props.newProduct.id,
+                name: props.newProduct.title,
+                quantity: 1,
+                price: props.newProduct.price,
+              },
+            });
+          }}
+        >
+          장바구니에 담기
+        </button>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -244,22 +245,8 @@ function TabContent(props) {
   }
 }
 
-function showModal(history) {
-  confirm({
-    title: "장바구니에 상품을 담았습니다.",
-    icon: <CheckOutlined style={{ color: "#1990ff" }} />,
-    content: "장바구니로 이동하시겠습니까?",
-    onOk() {
-      return new Promise((resolve, reject) => {
-        setTimeout(Math.random() > 0 ? resolve : reject, 1000);
-      })
-        .then(() => history.push("/cart"))
-        .catch(() => console.log("Oops errors!"));
-    },
-    onCancel() {
-      console.log("Cancel");
-    },
-  });
+function StackInfo(props) {
+  return <p>재고 : {props.stock}</p>;
 }
 
 function 함수명(state) {

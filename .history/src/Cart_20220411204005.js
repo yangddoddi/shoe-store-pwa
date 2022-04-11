@@ -31,7 +31,7 @@ function CartTable(props) {
         <tbody>
           {props.product.map((e, i) => {
             return (
-              <tr key={e.id}>
+              <tr>
                 <td>{e.id}</td>
                 <td>{e.name}</td>
                 <td>{e.quantity}</td>

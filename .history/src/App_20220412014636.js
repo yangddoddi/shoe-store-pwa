@@ -1,17 +1,26 @@
-import React, { useState, lazy, Suspense } from "react";
+import React, { useState, useContext, lazy, Suspense } from "react";
 import "./App.css";
 import { Link, Route, Switch, useHistory } from "react-router-dom";
 import axios from "axios";
 import Draggable from "react-draggable";
 
-import { Navbar, Container, Offcanvas, Nav } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Offcanvas,
+  Nav,
+  Form,
+  Button,
+  NavDropdown,
+  FormControl,
+} from "react-bootstrap";
 import CartPage from "./Cart.js";
 import productData from "./data.js";
 // import DetailPageItem from "./detailPageItems.js";
 let Detail = lazy(() => import("./detailPageItems.js"));
 
-const recentlyViewedProduct = localStorage.getItem("data");
-const recentlyViewedArr = JSON.parse(recentlyViewedProduct);
+let recentlyViewedProduct = localStorage.getItem("data");
+let recentlyViewedArr = JSON.parse(recentlyViewedProduct);
 
 function App() {
   let history = useHistory();
@@ -28,14 +37,8 @@ function App() {
     axios
       .get("https://codingapple1.github.io/shop/data2.json")
       .then((json) => {
-        let stringData = JSON.stringify(...json.data);
-        let stringProduct = JSON.stringify(product);
-        console.log(stringProduct.includes(stringData));
-
+        setProduct([...product, ...json.data]);
         setLoading(false);
-        if (!stringProduct.includes(stringData)) {
-          setProduct([...product, ...json.data]);
-        }
       })
       .catch(() => {
         alert("서버 요청에 실패했습니다.");
@@ -51,7 +54,6 @@ function App() {
           sidePosition={sidePosition}
           setSidePosition={setSidePosition}
           trackPos={trackPos}
-          product={product}
         />
       ) : null}
       <Switch>
@@ -119,7 +121,7 @@ function Jumbotron() {
         The highest quality
       </p>
       <p className="lead">
-        <a className="btn btn-primary btn-lg" href="/#/cart" role="button">
+        <a className="btn btn-primary btn-lg" href="#" role="button">
           Buy now
         </a>
       </p>
@@ -183,7 +185,6 @@ function Sidebar(props) {
           return (
             <img
               src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-              key={num}
               draggable="false"
               onClick={() => {
                 props.history.push(`/detail/${num}`);

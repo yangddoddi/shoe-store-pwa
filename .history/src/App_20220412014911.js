@@ -28,14 +28,8 @@ function App() {
     axios
       .get("https://codingapple1.github.io/shop/data2.json")
       .then((json) => {
-        let stringData = JSON.stringify(...json.data);
-        let stringProduct = JSON.stringify(product);
-        console.log(stringProduct.includes(stringData));
-
+        setProduct([...product, ...json.data]);
         setLoading(false);
-        if (!stringProduct.includes(stringData)) {
-          setProduct([...product, ...json.data]);
-        }
       })
       .catch(() => {
         alert("서버 요청에 실패했습니다.");
@@ -51,7 +45,6 @@ function App() {
           sidePosition={sidePosition}
           setSidePosition={setSidePosition}
           trackPos={trackPos}
-          product={product}
         />
       ) : null}
       <Switch>
@@ -119,7 +112,7 @@ function Jumbotron() {
         The highest quality
       </p>
       <p className="lead">
-        <a className="btn btn-primary btn-lg" href="/#/cart" role="button">
+        <a className="btn btn-primary btn-lg" href="#" role="button">
           Buy now
         </a>
       </p>
@@ -183,7 +176,6 @@ function Sidebar(props) {
           return (
             <img
               src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-              key={num}
               draggable="false"
               onClick={() => {
                 props.history.push(`/detail/${num}`);

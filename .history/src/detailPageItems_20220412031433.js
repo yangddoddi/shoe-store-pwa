@@ -11,9 +11,21 @@ import { CheckOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import { useHistory } from "react-router-dom";
 
+let 박스 = styled.div`
+  padding-top: 30px;
+`;
+let 제목 = styled.h4`
+  font-size: 25px;
+  color: ${(props) => props.color};
+`;
+
 const { confirm } = Modal;
 
 const recentlyViewedProduct = new Set([]);
+
+const StyledIcon = styled(CheckOutlined)`
+  color: blue;
+`;
 
 function DetailPageItem(props) {
   let { id } = useParams();
@@ -32,6 +44,9 @@ function DetailPageItem(props) {
 
   return (
     <div className="container">
+      <박스>
+        <제목 color="black">Detail</제목>
+      </박스>
       <ProductInfo
         newProduct={newProduct}
         dispatch={props.dispatch}
@@ -99,43 +114,38 @@ function Tab(props) {
 
 function ProductInfo(props) {
   return (
-    <>
-      <div>
-        <h2>Detail</h2>
+    <div className="row">
+      <div className="col-md-6">
+        <img
+          src={`https://codingapple1.github.io/shop/shoes${
+            props.newProduct.id + 1
+          }.jpg`}
+          width="100%"
+        />
       </div>
-      <div className="row">
-        <div className="col-md-6">
-          <img
-            src={`https://codingapple1.github.io/shop/shoes${
-              props.newProduct.id + 1
-            }.jpg`}
-            width="100%"
-          />
-        </div>
-        <div className="col-md-6 mt-4">
-          <h4 className="pt-5">{props.newProduct.title}</h4>
-          <p>{props.newProduct.content}</p>
-          <p>{props.newProduct.price}</p>
-          <button
-            className="btn btn-danger"
-            onClick={() => {
-              showModal(props.history);
-              props.dispatch({
-                type: "order",
-                payload: {
-                  id: props.newProduct.id,
-                  name: props.newProduct.title,
-                  quantity: 1,
-                  price: props.newProduct.price,
-                },
-              });
-            }}
-          >
-            장바구니에 담기
-          </button>
-        </div>
+      <div className="col-md-6 mt-4">
+        <h4 className="pt-5">{props.newProduct.title}</h4>
+        <p>{props.newProduct.content}</p>
+        <p>{props.newProduct.price}</p>
+        <button
+          className="btn btn-danger"
+          onClick={() => {
+            showModal(props.history);
+            props.dispatch({
+              type: "order",
+              payload: {
+                id: props.newProduct.id,
+                name: props.newProduct.title,
+                quantity: 1,
+                price: props.newProduct.price,
+              },
+            });
+          }}
+        >
+          장바구니에 담기
+        </button>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -247,11 +257,11 @@ function TabContent(props) {
 function showModal(history) {
   confirm({
     title: "장바구니에 상품을 담았습니다.",
-    icon: <CheckOutlined style={{ color: "#1990ff" }} />,
+    icon: <CheckOutlined />,
     content: "장바구니로 이동하시겠습니까?",
     onOk() {
       return new Promise((resolve, reject) => {
-        setTimeout(Math.random() > 0 ? resolve : reject, 1000);
+        setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
       })
         .then(() => history.push("/cart"))
         .catch(() => console.log("Oops errors!"));

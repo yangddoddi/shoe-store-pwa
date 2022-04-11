@@ -101,7 +101,7 @@ function ProductInfo(props) {
   return (
     <>
       <div>
-        <h2>Detail</h2>
+        <h1>Detail</h1>
       </div>
       <div className="row">
         <div className="col-md-6">
@@ -251,7 +251,7 @@ function showModal(history) {
     content: "장바구니로 이동하시겠습니까?",
     onOk() {
       return new Promise((resolve, reject) => {
-        setTimeout(Math.random() > 0 ? resolve : reject, 1000);
+        setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
       })
         .then(() => history.push("/cart"))
         .catch(() => console.log("Oops errors!"));

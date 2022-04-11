@@ -250,11 +250,12 @@ function showModal(history) {
     icon: <CheckOutlined style={{ color: "#1990ff" }} />,
     content: "장바구니로 이동하시겠습니까?",
     onOk() {
-      return new Promise((resolve, reject) => {
-        setTimeout(Math.random() > 0 ? resolve : reject, 1000);
-      })
-        .then(() => history.push("/cart"))
-        .catch(() => console.log("Oops errors!"));
+      history.push("/cart");
+      // return new Promise((resolve, reject) => {
+      //   setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+      // })
+      //   .then(() => history.push("/cart"))
+      //   .catch(() => console.log("Oops errors!"));
     },
     onCancel() {
       console.log("Cancel");
