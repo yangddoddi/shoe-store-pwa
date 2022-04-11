@@ -2,7 +2,6 @@ import React, { useState, useContext, lazy, Suspense } from "react";
 import "./App.css";
 import { Link, Route, Switch, useHistory } from "react-router-dom";
 import axios from "axios";
-import Draggable from "react-draggable";
 
 import {
   Navbar,
@@ -17,23 +16,22 @@ import {
 import CartPage from "./Cart.js";
 import productData from "./data.js";
 // import DetailPageItem from "./detailPageItems.js";
-let Detail = lazy(() => import("./detailPageItems.js"));
+const Detail = lazy(() => import("./detailPageItems.js"));
 
-let stockContext = React.createContext();
+const stockContext = React.createContext();
 
-let recentlyViewedProduct = localStorage.getItem("data");
-let recentlyViewedArr = JSON.parse(recentlyViewedProduct);
+const recentlyViewedProduct = localStorage.getItem("data");
+const recentlyViewedArr = JSON.parse(recentlyViewedProduct);
 
 function App() {
+  const ondragStart = (e) => {
+    console.log(e);
+  };
   let history = useHistory();
 
   let [product, setProduct] = useState(productData);
   let [loading, setLoading] = useState(false);
   let [stock, setStock] = useState([3, 7, 2]);
-  const [sidePosition, setSidePosition] = useState({ x: 0, y: 0 });
-  const trackPos = (data) => {
-    setSidePosition({ x: data.x, y: data.y });
-  };
 
   function loadItems() {
     setLoading(true);
@@ -51,14 +49,7 @@ function App() {
   return (
     <div className="App">
       <NewNavbar />
-      {recentlyViewedArr ? (
-        <Sidebar
-          history={history}
-          sidePosition={sidePosition}
-          setSidePosition={setSidePosition}
-          trackPos={trackPos}
-        />
-      ) : null}
+      {recentlyViewedArr ? <Sidebar history={history} /> : null}
       <Switch>
         <Route exact path="/">
           <Jumbotron />
@@ -186,22 +177,19 @@ function LoadingSpinner() {
 
 function Sidebar(props) {
   return (
-    <Draggable onDrag={(e, data) => props.trackPos(data)}>
-      <aside className="sidebar">
-        <p>최근 본 상품</p>
-        {recentlyViewedArr.map((num) => {
-          return (
-            <img
-              src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-              draggable="false"
-              onClick={() => {
-                props.history.push(`/detail/${num}`);
-              }}
-            />
-          );
-        })}
-      </aside>
-    </Draggable>
+    <aside className="sidebar" draggable>
+      <p>최근 본 상품</p>
+      {recentlyViewedArr.map((num) => {
+        return (
+          <img
+            src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
+            onClick={() => {
+              props.history.push(`/detail/${num}`);
+            }}
+          />
+        );
+      })}
+    </aside>
   );
 }
 

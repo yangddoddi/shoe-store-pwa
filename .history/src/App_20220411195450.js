@@ -30,10 +30,7 @@ function App() {
   let [product, setProduct] = useState(productData);
   let [loading, setLoading] = useState(false);
   let [stock, setStock] = useState([3, 7, 2]);
-  const [sidePosition, setSidePosition] = useState({ x: 0, y: 0 });
-  const trackPos = (data) => {
-    setSidePosition({ x: data.x, y: data.y });
-  };
+  const [sidePosition, setSidePosition] = useState({ x, y });
 
   function loadItems() {
     setLoading(true);
@@ -52,12 +49,13 @@ function App() {
     <div className="App">
       <NewNavbar />
       {recentlyViewedArr ? (
-        <Sidebar
-          history={history}
-          sidePosition={sidePosition}
-          setSidePosition={setSidePosition}
-          trackPos={trackPos}
-        />
+        <Draggable>
+          <Sidebar
+            history={history}
+            sidePosition={sidePosition}
+            setSidePosition={setSidePosition}
+          />
+        </Draggable>
       ) : null}
       <Switch>
         <Route exact path="/">
@@ -185,23 +183,24 @@ function LoadingSpinner() {
 }
 
 function Sidebar(props) {
+  const trackPos = (data) => {
+    props.setPosition({ x: data.x, y: data.y });
+  };
+
   return (
-    <Draggable onDrag={(e, data) => props.trackPos(data)}>
-      <aside className="sidebar">
-        <p>최근 본 상품</p>
-        {recentlyViewedArr.map((num) => {
-          return (
-            <img
-              src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-              draggable="false"
-              onClick={() => {
-                props.history.push(`/detail/${num}`);
-              }}
-            />
-          );
-        })}
-      </aside>
-    </Draggable>
+    <aside className="sidebar" onDrag={(e, data) => trackPos(data)}>
+      <p>최근 본 상품</p>
+      {recentlyViewedArr.map((num) => {
+        return (
+          <img
+            src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
+            onClick={() => {
+              props.history.push(`/detail/${num}`);
+            }}
+          />
+        );
+      })}
+    </aside>
   );
 }
 

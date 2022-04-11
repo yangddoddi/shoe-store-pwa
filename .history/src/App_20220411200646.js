@@ -186,14 +186,13 @@ function LoadingSpinner() {
 
 function Sidebar(props) {
   return (
-    <Draggable onDrag={(e, data) => props.trackPos(data)}>
+    <Draggable onDrag={(e, data) => trackPos(data)}>
       <aside className="sidebar">
         <p>최근 본 상품</p>
         {recentlyViewedArr.map((num) => {
           return (
             <img
               src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-              draggable="false"
               onClick={() => {
                 props.history.push(`/detail/${num}`);
               }}

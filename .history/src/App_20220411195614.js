@@ -32,7 +32,7 @@ function App() {
   let [stock, setStock] = useState([3, 7, 2]);
   const [sidePosition, setSidePosition] = useState({ x: 0, y: 0 });
   const trackPos = (data) => {
-    setSidePosition({ x: data.x, y: data.y });
+    setPosition({ x: data.x, y: data.y });
   };
 
   function loadItems() {
@@ -52,12 +52,13 @@ function App() {
     <div className="App">
       <NewNavbar />
       {recentlyViewedArr ? (
-        <Sidebar
-          history={history}
-          sidePosition={sidePosition}
-          setSidePosition={setSidePosition}
-          trackPos={trackPos}
-        />
+        <Draggable onDrag={(e, data) => trackPos(data)}>
+          <Sidebar
+            history={history}
+            sidePosition={sidePosition}
+            setSidePosition={setSidePosition}
+          />
+        </Draggable>
       ) : null}
       <Switch>
         <Route exact path="/">
@@ -186,22 +187,19 @@ function LoadingSpinner() {
 
 function Sidebar(props) {
   return (
-    <Draggable onDrag={(e, data) => props.trackPos(data)}>
-      <aside className="sidebar">
-        <p>최근 본 상품</p>
-        {recentlyViewedArr.map((num) => {
-          return (
-            <img
-              src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-              draggable="false"
-              onClick={() => {
-                props.history.push(`/detail/${num}`);
-              }}
-            />
-          );
-        })}
-      </aside>
-    </Draggable>
+    <aside className="sidebar">
+      <p>최근 본 상품</p>
+      {recentlyViewedArr.map((num) => {
+        return (
+          <img
+            src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
+            onClick={() => {
+              props.history.push(`/detail/${num}`);
+            }}
+          />
+        );
+      })}
+    </aside>
   );
 }
 

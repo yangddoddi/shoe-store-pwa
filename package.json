@@ -12,6 +12,7 @@
     "react": "^18.0.0",
     "react-bootstrap": "^2.2.3",
     "react-dom": "^18.0.0",
+    "react-draggable": "^4.4.4",
     "react-redux": "^7.2.8",
     "react-router-dom": "^5.3.0",
     "react-scripts": "5.0.0",
@@ -39,6 +40,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://yangddoddi.github.io/ShoeStore/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -55,11 +57,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ],
-    "jest": {
-  "transformIgnorePatterns": [
-    "/node_modules/(?!antd|@ant-design|rc-.+?|@babel/runtime).+(js|jsx)$"
-  ]
-}
+    ]
   }
 }

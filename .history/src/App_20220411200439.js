@@ -51,14 +51,13 @@ function App() {
   return (
     <div className="App">
       <NewNavbar />
-      {recentlyViewedArr ? (
+      <Draggable onDrag={(e, data) => trackPos(data)}>
         <Sidebar
           history={history}
           sidePosition={sidePosition}
           setSidePosition={setSidePosition}
-          trackPos={trackPos}
         />
-      ) : null}
+      </Draggable>
       <Switch>
         <Route exact path="/">
           <Jumbotron />
@@ -186,22 +185,19 @@ function LoadingSpinner() {
 
 function Sidebar(props) {
   return (
-    <Draggable onDrag={(e, data) => props.trackPos(data)}>
-      <aside className="sidebar">
-        <p>최근 본 상품</p>
-        {recentlyViewedArr.map((num) => {
-          return (
-            <img
-              src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
-              draggable="false"
-              onClick={() => {
-                props.history.push(`/detail/${num}`);
-              }}
-            />
-          );
-        })}
-      </aside>
-    </Draggable>
+    <aside className="sidebar">
+      <p>최근 본 상품</p>
+      {recentlyViewedArr.map((num) => {
+        return (
+          <img
+            src={`https://codingapple1.github.io/shop/shoes${num + 1}.jpg`}
+            onClick={() => {
+              props.history.push(`/detail/${num}`);
+            }}
+          />
+        );
+      })}
+    </aside>
   );
 }
 

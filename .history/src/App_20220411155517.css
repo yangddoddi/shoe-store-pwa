@@ -12,16 +12,14 @@
 .sidebar {
   background-color: white;
   position: fixed;
-  right: 0px;
-  top: 100px;
+  /* right: 0px;
+  top: 100px; */
   display: flex;
   flex-direction: column;
   width: 100px;
   opacity: 90%;
   border-radius: 10px;
   border: whitesmoke 1px solid;
-  cursor: move;
-  user-select: none;
 }
 
 .sidebar p {
@@ -75,6 +73,10 @@
 
 .shopItemList {
   cursor: pointer;
+}
+
+.sidebar {
+  cursor: move;
 }
 
 @media (prefers-reduced-motion: no-preference) {
